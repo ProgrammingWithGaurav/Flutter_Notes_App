@@ -43,6 +43,17 @@ class NoteData extends ChangeNotifier {
     notifyListeners();
   }
 
+  // toggle note done
+  void toggleDone(Note note) {
+    for (int i = 0; i < allNotes.length; i++) {
+      if (allNotes[i].id == note.id) {
+        // toggle done
+        allNotes[i].done = !allNotes[i].done;
+      }
+    }
+    notifyListeners();
+  }
+
   // delete a note
   void deleteNote(Note note) {
     allNotes.remove(note);

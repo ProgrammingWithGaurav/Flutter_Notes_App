@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:notes_app_tut/models/Note.dart';
 
@@ -12,7 +11,10 @@ class HiveDatabase {
     if (_myBox.get("all_notes") != null) {
       List<dynamic> savedNotes = _myBox.get("all_notes");
       for (int i = 0; i < savedNotes.length; i++) {
-        Note note = Note(id: savedNotes[i][0], text: savedNotes[i][1]);
+        Note note = Note(
+            id: savedNotes[i][0],
+            text: savedNotes[i][1],
+            done: savedNotes[i][2]);
         savedNotesFormatted.add(note);
       }
     } else {
@@ -33,7 +35,8 @@ class HiveDatabase {
     for (var note in allNotes) {
       int id = note.id;
       String text = note.text;
-      allNotesFormatted.add([id, text]);
+      bool done = note.done;
+      allNotesFormatted.add([id, text, done]);
     }
 
     // add note

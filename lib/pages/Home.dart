@@ -84,12 +84,36 @@ class _HomePageState extends State<HomePage> {
                           (index) => CupertinoListTile(
                               onTap: () => goToNotePage(
                                   value.getAllNotes()[index], false),
-                              trailing: IconButton(
-                                  onPressed: () =>
-                                      deleteNote(value.getAllNotes()[index]),
-                                  icon: Icon(Icons.delete,
-                                      color: Colors.redAccent)),
-                              title: Text(value.getAllNotes()[index].text))))
+                              trailing: Row(
+                                children: [
+                                  // Check box to mark note as done
+                                  IconButton(
+                                      onPressed: () => value.toggleDone(
+                                          value.getAllNotes()[index]),
+                                      icon: value.getAllNotes()[index].done
+                                          ? Icon(Icons.check_box_rounded)
+                                          : Icon(Icons.check_box_outline_blank),
+                                      color: Colors.grey),
+                                  IconButton(
+                                      onPressed: () => deleteNote(
+                                          value.getAllNotes()[index]),
+                                      icon: Icon(Icons.delete,
+                                          color: Colors.redAccent)),
+                                ],
+                              ),
+                              title: Text(
+                                value.getAllNotes()[index].text,
+                                style: TextStyle(
+                                  // under line text
+                                  decoration: value.getAllNotes()[index].done
+                                      ? TextDecoration.lineThrough
+                                      : TextDecoration.none,
+                                  // grey if done
+                                  color: value.getAllNotes()[index].done
+                                      ? Colors.grey
+                                      : Colors.black,
+                                ),
+                              ))))
             ],
           )),
     );
